@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.cdnfonts.com/css/magic-2" rel="stylesheet" />
+    <title>Sourcererss Calculator</title>
+    <style>
+      @import url("https://fonts.cdnfonts.com/css/magic-2");
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-image: url("BGGG.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .calculator {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      label {
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      input[type="number"],
+      select,
+      button {
+        margin-bottom: 10px;
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      p {
+        margin-top: 10px;
+        font-size: 18px;
+      }
+      .price-input {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .price-input span {
+        padding: 0 10px;
+      }
+
+      .price-input input[type="number"] {
+        flex: 1;
+        padding: 8px;
+        border: none;
+        border-radius: 0 5px 5px 0;
+      }
+      h2 {
+        text-align: center;
+        font-family: "Magic", sans-serif;
+
+        font-size: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calculator">
+      <h2>Sourceres Calculator</h2>
+      <label for="number">Enter Price:</label>
+      <div class="price-input">
+        <span>£</span>
+        <input type="number" id="number" min="0" />
+      </div>
+
+      <label for="offer">Select Offer:</label>
+      <select id="offer">
+        <option value="no_offer">No Offer</option>
+        <option value="buy_1_get_1">Buy 1 Get 1</option>
+        <option value="buy_3_for_2">Buy 3 for 2</option>
+        <option value="buy_1_get_half">Buy 1 Get 1/2</option>
+      </select>
+
+      <label for="discount">Select Discount:</label>
+      <select id="discount">
+        <option value="0">No Discount</option>
+        <option value="10">10% off</option>
+        <option value="15">15% off</option>
+        <option value="20">20% off</option>
+        <option value="30">30% off</option>
+        <option value="40">40% off</option>
+        <option value="50">50% off</option>
+      </select>
+
+      <button onclick="calculate()">Calculate</button>
+
+      <p id="result"></p>
+    </div>
+
+    <script>
+      function calculate() {
+        var price = parseFloat(document.getElementById("number").value);
+        var offer = document.getElementById("offer").value;
+        var discount = parseFloat(document.getElementById("discount").value);
+        var finalPrice = 0;
+
+        switch (offer) {
+          case "no_offer":
+            finalPrice = price;
+            break;
+          case "buy_1_get_1":
+            finalPrice = price / 2;
+            break;
+          case "buy_3_for_2":
+            finalPrice = (price * 2) / 3;
+            break;
+          case "buy_1_get_half":
+            finalPrice = (price * 1.5) / 2;
+            break;
+        }
+
+        finalPrice -= finalPrice * (discount / 100);
+
+        document.getElementById("result").innerHTML =
+          "Final Price: £" + finalPrice.toFixed(2);
+      }
+    </script>
+  </body>
+</html>
