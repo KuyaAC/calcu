@@ -6,6 +6,8 @@
     <link href="https://fonts.cdnfonts.com/css/magic-2" rel="stylesheet" />
     <title>Sourcererss Calculator</title>
     <style>
+
+      /* Discount Calculator part*/
       @import url("https://fonts.cdnfonts.com/css/magic-2");
       body {
         display: flex;
@@ -33,7 +35,7 @@
 
       input[type="number"],
       select,
-      button {
+      .CalBtn {
         margin-bottom: 10px;
         width: 100%;
         padding: 8px;
@@ -42,15 +44,11 @@
         font-size: 16px;
       }
 
-      button {
+      .CalBtn {
         background-color: #4caf50;
         color: white;
         border: none;
         cursor: pointer;
-      }
-
-      button:hover {
-        background-color: #45a049;
       }
 
       p {
@@ -77,14 +75,86 @@
       h2 {
         text-align: center;
         font-family: "Magic", sans-serif;
-
         font-size: 30px;
       }
+
+      /* Calculator part*/
+      .math{
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: white;
+        border-radius: 15px;
+        max-width: 400px;
+        overflow: hidden;
+        margin-left: 50px;
+      }
+      #display{
+        width: 100%;
+        padding: 15px;
+        font-size: 3rem;
+        text-align: left;
+        border: none;
+        background-color: whitesmoke;
+        color: black;
+
+
+      }
+      #keys{
+        display: grid;
+        grid-template-columns: repeat(4, 3fr);
+        gap: 10px;
+        padding: 25px;
+
+      }
+      button{
+        width: 70px;
+        height: 70px;
+        border-radius: 50px;
+        border: none;
+        background-color: whitesmoke;
+        color: black;
+        font-size: 2rem;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      button:hover{
+        background-color: wheat;
+      }
+      button:active{
+        background-color: wheat;
+      }
+      .operators{
+        background-color: #4caf50;
+        color: white;
+      }
+      .operators:hover{
+        background-color: lightgreen;
+      }
+      .operators:active{
+        background-color: lightgreen;
+      }
+
+      /*Concen Part*/
+      #container {
+        position: relative;
+        width: 400px; /* Set width and height for demonstration */
+        height: 300px;
+        border: 1px solid #ccc;
+      }
+
+      #lowerRightDiv {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background-color: #f0f0f0;
+        padding: 10px;
+      }
+
+
     </style>
   </head>
   <body>
     <div class="calculator">
-      <h2>Sourceres Calculator</h2>
+      <h2>Sourcerers Calculator</h2>
       <label for="number">Enter Price:</label>
       <div class="price-input">
         <span>£</span>
@@ -110,12 +180,40 @@
         <option value="50">50% off</option>
       </select>
 
-      <button onclick="calculate()">Calculate</button>
+      <button class="CalBtn" onclick="calculate()">Calculate</button>
 
       <p id="result"></p>
     </div>
 
+    <div class="math">
+      <input id="display" readonly />
+      <div id="keys">
+          <button onclick="appendToDisplay('+')" class="operators">+</button>
+          <button onclick="appendToDisplay('7')">7</button>
+          <button onclick="appendToDisplay('8')">8</button>
+          <button onclick="appendToDisplay('9')">9</button>
+          <button onclick="appendToDisplay('-')" class="operators">-</button>
+          <button onclick="appendToDisplay('4')">4</button>
+          <button onclick="appendToDisplay('5')">5</button>
+          <button onclick="appendToDisplay('6')">6</button>
+          <button onclick="appendToDisplay('*')"class="operators">*</button>
+          <button onclick="appendToDisplay('1')">1</button>
+          <button onclick="appendToDisplay('2')">2</button>
+          <button onclick="appendToDisplay('3')">3</button>
+          <button onclick="appendToDisplay('/')" class="operators">/</button>
+          <button onclick="appendToDisplay('0')">0</button>
+          <button onclick="appendToDisplay('.')">.</button>
+          <button onclick="calculatee()">=</button>
+          <button onclick="clearDisplay()" class="operators">C</button>
+
+      </div>
+      <div id="containerr">
+        <h4 id="lowerRightDiv">if you have any concern email me: allencarldelasalas@gmail.com</h4>
+      </div>
+    </div>
+
     <script>
+      //Discoumt part
       function calculate() {
         var price = parseFloat(document.getElementById("number").value);
         var offer = document.getElementById("offer").value;
@@ -142,6 +240,34 @@
         document.getElementById("result").innerHTML =
           "Final Price: £" + finalPrice.toFixed(2);
       }
+
+      //Calcu part
+      const display = document.getElementById("display");
+
+      function appendToDisplay(input){
+          display.value += input;
+      }
+
+      function clearDisplay(){
+          display.value = "";
+
+      }
+      function calculatee(){
+        try {
+          let result = eval(display.value);
+          // Check if the result is a number
+          if (!isNaN(result)) {
+            // Round the result to 2 decimal places
+            result = parseFloat(result.toFixed(2));
+            display.value = result;
+        } else {
+          display.value = "Error";
+        }
+        } catch (error) {
+          display.value = "Error";
+        }
+      }
+
     </script>
   </body>
 </html>
